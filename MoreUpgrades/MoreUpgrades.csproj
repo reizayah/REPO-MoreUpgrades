@@ -31,8 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="0Harmony">
-      <HintPath>D:\r2modman\REPO\profiles\vanilla modded\BepInEx\core\0Harmony.dll</HintPath>
+    <Reference Include="0Harmony, Version=2.9.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Desktop\Games\r2modman\REPO\profiles\vanilla modded\BepInEx\core\0Harmony.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -125,7 +126,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy /q/y/i "$(TargetPath)" "D:\r2modman\REPO\profiles\vanilla modded\BepInEx\plugins\BULLETBOT-MoreUpgrades" /E /H /C
+    <PostBuildEvent>xcopy /q/y/i "$(TargetPath)" "C:\Users\BULLETBOT\Desktop\Games\r2modman\REPO\profiles\vanilla modded\BepInEx\plugins\BULLETBOT-MoreUpgrades" /E /H /C
 xcopy /q/y/i "$(TargetPath)" "C:\Users\BULLETBOT\Documents\GitHub\REPO-MoreUpgrades\Upload" /E /H /C</PostBuildEvent>
   </PropertyGroup>
 </Project>

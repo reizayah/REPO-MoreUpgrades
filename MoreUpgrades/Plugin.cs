@@ -21,7 +21,7 @@ namespace MoreUpgrades
     {
         private const string modGUID = "bulletbot.moreupgrades";
         private const string modName = "MoreUpgrades";
-        private const string modVer = "1.6.6";
+        private const string modVer = "1.6.7";
 
         internal static Plugin instance;
         public ManualLogSource logger;
@@ -330,6 +330,7 @@ namespace MoreUpgrades
                 if (playerAvatar != null)
                 {
                     bool hasUpgrade = upgradeItem.playerUpgrade.GetLevel(playerAvatar) > 0;
+                    PlayerDeathHead playerDeathHead = (PlayerDeathHead)AccessTools.Field(typeof(PlayerAvatar), "playerDeathHead").GetValue(playerAvatar);
                     List<MapInfo> mapInfos = upgradeItem.GetVariable<List<MapInfo>>("Map Infos");
                     foreach (MapInfo mapInfo in mapInfos)
                     {
@@ -341,7 +342,7 @@ namespace MoreUpgrades
                             if (Map.Instance.Active)
                                 Map.Instance.CustomPositionSet(mapCustomEntity.transform, parent);
                             spriteRenderer.sprite = upgradeItem.GetConfig<bool>("Arrow Icon") ? mapTracker :
-                                playerAvatar.playerDeathHead.mapCustom.sprite;
+                                playerDeathHead.mapCustom.sprite;
                             Color color = upgradeItem.GetConfig<Color>("Color");
                             if (upgradeItem.upgradeBase.name == "Map Player Tracker" &&
                                 upgradeItem.GetConfig<bool>("Player Color"))

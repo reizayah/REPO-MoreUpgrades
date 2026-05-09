@@ -22,12 +22,15 @@ namespace MoreUpgrades.REPOLibPatches
                     continue;
                 string key = "appliedPlayerUpgrade" + pair.Key;
                 Dictionary<string, int> appliedPlayerDictionary = upgradeItem.appliedPlayerDictionary;
-                if (StatsManager.instance.dictionaryOfDictionaries.TryGetValue(key, out Dictionary<string, int> dictionary))
+                SortedDictionary<string, Dictionary<string, int>> dictionaryOfDictionaries = 
+                    (SortedDictionary<string, Dictionary<string, int>>)AccessTools.Field(typeof(StatsManager),
+                    "dictionaryOfDictionaries").GetValue(StatsManager.instance);
+                if (dictionaryOfDictionaries.TryGetValue(key, out Dictionary<string, int> dictionary))
                     appliedPlayerDictionary = dictionary;
                 else
                 {
                     appliedPlayerDictionary.Clear();
-                    StatsManager.instance.dictionaryOfDictionaries.Add(key, appliedPlayerDictionary);
+                    dictionaryOfDictionaries.Add(key, appliedPlayerDictionary);
                 }
             }
         }
