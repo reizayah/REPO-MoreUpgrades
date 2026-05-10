@@ -27,13 +27,13 @@ namespace MoreUpgrades.Classes
             public List<string> excludeConfigs = new List<string>();
         }
 
-        public bool isRepoLibImported;
+        private bool isRepoLibImported;
         private string sectionName;
-        internal Base upgradeBase;
-        internal PlayerUpgrade playerUpgrade;
+        public Base upgradeBase;
+        public PlayerUpgrade playerUpgrade;
         private Dictionary<string, ConfigEntryBase> configEntries;
-        internal Dictionary<string, int> appliedPlayerDictionary;
-        internal Dictionary<string, object> variables;
+        public Dictionary<string, int> appliedPlayerDictionary;
+        public Dictionary<string, object> variables;
 
         public bool AddConfig<T>(string key, T defaultValue, string description = "")
         {

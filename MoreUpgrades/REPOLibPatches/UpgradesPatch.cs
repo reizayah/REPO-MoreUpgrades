@@ -20,6 +20,10 @@ namespace MoreUpgrades.REPOLibPatches
                 UpgradeItem upgradeItem = Plugin.instance.upgradeItems.FirstOrDefault(x => x.playerUpgrade.Item == pair.Value.Item);
                 if (upgradeItem == null)
                     continue;
+                StatsManager.instance.upgradesInfo.Add("playerUpgrade" + pair.Key, new StatsManager.UpgradeInfo
+                {
+                    displayName = upgradeItem.upgradeBase.name
+                });
                 string key = "appliedPlayerUpgrade" + pair.Key;
                 Dictionary<string, int> appliedPlayerDictionary = upgradeItem.appliedPlayerDictionary;
                 SortedDictionary<string, Dictionary<string, int>> dictionaryOfDictionaries = 
