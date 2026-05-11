@@ -1,4 +1,4 @@
-﻿using HarmonyLib;
+using HarmonyLib;
 using MoreUpgrades.Classes;
 using REPOLib.Modules;
 using System.Collections.Generic;
@@ -20,21 +20,26 @@ namespace MoreUpgrades.REPOLibPatches
                 UpgradeItem upgradeItem = Plugin.instance.upgradeItems.FirstOrDefault(x => x.playerUpgrade.Item == pair.Value.Item);
                 if (upgradeItem == null)
                     continue;
-                StatsManager.instance.upgradesInfo.Add("playerUpgrade" + pair.Key, new StatsManager.UpgradeInfo
+
+                // FIXED: Safely overwrite the upgradesInfo dictionary to prevent Main Menu reload crashes
+                StatsManager.instance.upgradesInfo["playerUpgrade" + pair.Key] = new StatsManager.UpgradeInfo
                 {
                     displayName = upgradeItem.upgradeBase.name
-                });
+                };
+
                 string key = "appliedPlayerUpgrade" + pair.Key;
                 Dictionary<string, int> appliedPlayerDictionary = upgradeItem.appliedPlayerDictionary;
-                SortedDictionary<string, Dictionary<string, int>> dictionaryOfDictionaries = 
+                SortedDictionary<string, Dictionary<string, int>> dictionaryOfDictionaries =
                     (SortedDictionary<string, Dictionary<string, int>>)AccessTools.Field(typeof(StatsManager),
                     "dictionaryOfDictionaries").GetValue(StatsManager.instance);
+
                 if (dictionaryOfDictionaries.TryGetValue(key, out Dictionary<string, int> dictionary))
                     appliedPlayerDictionary = dictionary;
                 else
                 {
                     appliedPlayerDictionary.Clear();
-                    dictionaryOfDictionaries.Add(key, appliedPlayerDictionary);
+                    // FIXED: Safely overwrite the dictionaryOfDictionaries as well
+                    dictionaryOfDictionaries[key] = appliedPlayerDictionary;
                 }
             }
         }
